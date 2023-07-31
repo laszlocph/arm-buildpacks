@@ -42,12 +42,25 @@ Build stack images
 ```
 cd stacks/jammy/base
 docker build -t jammy-base .
+docker build -f Dockerfile.arm -t jammy-base .
 
 cd stacks/jammy/build
 docker build -t jammy-build --build-arg base_image=jammy-base --build-arg stack_id=io.buildpacks.stacks.jammy .
 
 cd stacks/jammy/run
 docker build -t jammy-run --build-arg base_image=jammy-base --build-arg stack_id=io.buildpacks.stacks.jammy .
+```
+
+Build buildpacks
+```
+cd buildpacks/paketo-buildpacks_node-engine
+./scripts/build.sh
+
+cd buildpacks/paketo-buildpacks_npm-install
+./scripts/build.sh
+
+cd buildpacks/paketo-buildpacks_npm-start
+./scripts/build.sh
 ```
 
 Build images
